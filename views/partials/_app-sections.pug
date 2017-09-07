@@ -1,0 +1,15 @@
+.bounds.app--body
+  .app--section--header
+    .grid-33
+      .app--section--heading
+        h2 Timeline
+    .grid-33
+      .app--section--heading
+        strong #{user.friendCount}
+        h2 Following
+    .grid-33
+      .app--section--heading
+        h2 Direct Messages
+  include ./_tweet-list.pug
+  include ./_user-list.pug
+  include ./_message-list.pug

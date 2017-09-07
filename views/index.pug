@@ -1,5 +1,6 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  include ./partials/_header.pug
+  include ./partials/_tweet.pug
+  include ./partials/_app-sections.pug

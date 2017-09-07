@@ -1,7 +1,17 @@
 doctype html
-html
+html(lang="en")
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    //basic needs
+    meta(charset="utf-8")
+    title Twitter Client
+    meta(name="description" content="")
+    meta(name="author" content="")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    //Fonts
+    link(href='https://fonts.googleapis.com/css?family=Work+Sans:400,600' rel='stylesheet' type='text/css')
+    //stylesheets
+    link(rel='stylesheet', href='/css/global.css')
   body
     block content
+  footer
+    script(src='/javascripts/app.js')
