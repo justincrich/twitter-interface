@@ -1,21 +1,22 @@
 .grid-33
   div(class="app--section")
     ul.app--message--list
-      li
-        h3 Conversation with <a>Jill Spore</a>
-        ul.app--message--conversation
-          li.app--message
-            div.app--avatar(style="background-image: url(images/f-spore.png)")
-              img(src="images/f-spore.png")
-            p.app--message--text How are things?
-            p.app--message--timestamp 3 hours ago
-          li.app--message--me
-            div.app--avatar(style="background-image: url(images/m-spore.png)")
-              img(src="images/m-spore.png")
-            p.app--message--text Great! How about you? Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            p.app--message--timestamp 2 hours ago
-          li.app--message
-            div.app--avatar(style="background-image: url(images/f-spore.png)")
-              img(src="images/f-spore.png")
-            p.app--message--text Fantastic! You wanna grab lunch?
-            p.app--message--timestamp 1 hour ago
+      each message in messageData
+        li(id=message.id)
+          h3 Conversation with <a href=message.sender.url target="_blank">#{message.sender.name}</a>
+          ul.app--message--conversation
+            li.app--message
+              div.app--avatar(style="background-image: url("+message.sender.image+")")
+                img(src=message.sender.image)
+              p.app--message--text #{message.text}
+              p.app--message--timestamp #{message.date}
+            //- li.app--message--me
+            //-   div.app--avatar(style="background-image: url(images/m-spore.png)")
+            //-     img(src="images/m-spore.png")
+            //-   p.app--message--text Great! How about you? Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            //-   p.app--message--timestamp 2 hours ago
+            //- li.app--message
+            //-   div.app--avatar(style="background-image: url(images/f-spore.png)")
+            //-     img(src="images/f-spore.png")
+            //-   p.app--message--text Fantastic! You wanna grab lunch?
+            //-   p.app--message--timestamp 1 hour ago

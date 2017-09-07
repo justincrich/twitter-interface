@@ -23,6 +23,25 @@ var getUser = function(client){
   });
 }
 
+var postTweet = function(client,status){
+  return new Promise((resolve,reject)=>{
+    client.post(
+      'statuses/update',
+      {
+        status:status
+      },
+      function(err, data, response){
+        if(err){
+          reject(err)
+        }
+        if(data){
+          resolve(data)
+        }
+      }
+    )
+  })
+}
+
 var getRecentTweets = function (client,username,tweetNum = 5){
   return new Promise((resolve,reject)=>{
     client.get(
@@ -52,7 +71,7 @@ var getRecentTweets = function (client,username,tweetNum = 5){
               tweetURL:(tweet.entities.urls[0] != undefined? tweet.entities.urls[0].url : undefined),
               profileURL:`https://twitter.com/${tweet.user.screen_name}`,
               text:tweet.text,
-              date:moment(new Date(tweet.created_at)).fromNow(),
+              date:moment(new Date(tweet.created_at)).format("MM/DD/YY, h:mm:ss a"),
               favorite_count:tweet.favorite_count,
               retweet_count:tweet.retweet_count
             })
@@ -120,18 +139,19 @@ var getRecentMessages = function (client, username,tweetNum = 5){
             output.push({
               id:message.id,
               text:message.text,
+              date:moment(new Date(message.created_at)).format("MM/DD/YY, h:mm:ss a"),
               sender:{
                 name:message.sender.name,
                 username:message.sender.screen_name,
                 url:message.sender.url,
                 image:message.sender.profile_image_url
-              },
-              recipient:{
-                name:message.recipient.name,
-                username:message.recipient.screen_name,
-                url:message.recipient.url,
-                image:message.recipient.profile_image_url
               }
+              // recipient:{
+              //   name:message.recipient.name,
+              //   username:message.recipient.screen_name,
+              //   url:message.recipient.url,
+              //   image:message.recipient.profile_image_url
+              // }
             });
             index++;
           }
@@ -141,7 +161,150 @@ var getRecentMessages = function (client, username,tweetNum = 5){
     )
   });
 }
+
+var followUser = function (client, id){
+  return new Promise((resolve,reject)=>{
+    client.post(
+      "friendships/create",
+      {
+        id:id
+      },
+      function (err, data, response){
+        if(err){
+          reject(err);
+        }
+        if(data){
+          resolve(data);
+        }
+      }
+    )
+  })
+};
+
+var unfollowUser = function (client, id){
+  return new Promise((resolve,reject)=>{
+    client.post(
+      "friendships/destroy",
+      {
+        id:id
+      },
+      function (err, data, response){
+        if(err){
+          reject(err);
+        }
+        if(data){
+          resolve(data);
+        }
+      }
+    )
+  })
+};
+
+var createRetweet = function (client, id){
+  return new Promise((resolve,reject)=>{
+    client.post(
+      "statuses/retweet",
+      {
+        id:id
+      },
+      function (err, data, response){
+        if(err){
+          reject(err);
+        }
+        if(data){
+          resolve(data);
+        }
+      }
+    )
+  })
+};
+
+var unretweet = function (client, id){
+  return new Promise((resolve,reject)=>{
+    client.post(
+      "statuses/unretweet",
+      {
+        id:id
+      },
+      function (err, data, response){
+        if(err){
+          reject(err);
+        }
+        if(data){
+          resolve(data);
+        }
+      }
+    )
+  })
+};
+
+var createFavorite = function (client, id){
+  return new Promise((resolve,reject)=>{
+    client.post(
+      "favorites/create",
+      {
+        id:id
+      },
+      function (err, data, response){
+        if(err){
+          reject(err);
+        }
+        if(data){
+          resolve(data);
+        }
+      }
+    )
+  })
+};
+
+var destroyFavorite = function (client, id){
+  return new Promise((resolve,reject)=>{
+    client.post(
+      "favorites/destroy",
+      {
+        id:id
+      },
+      function (err, data, response){
+        if(err){
+          reject(err);
+        }
+        if(data){
+          resolve(data);
+        }
+      }
+    )
+  })
+};
+
+var getTweet = function (client, id){
+  return new Promise((resolve,reject)=>{
+    client.get(
+      "statuses/show",
+      {
+        id:id
+      },
+      function (err, data, response){
+        if(err){
+          reject(err);
+        }
+        if(data){
+          resolve(data);
+        }
+      }
+    )
+  })
+};
+
+
+
+module.exports.unretweet = unretweet;
+module.exports.destroyFavorite = destroyFavorite;
+module.exports.followUser = followUser;
+module.exports.unfollowUser = unfollowUser;
+module.exports.createRetweet = createRetweet;
+module.exports.createFavorite = createFavorite;
 module.exports.getUser = getUser;
 module.exports.getRecentTweets = getRecentTweets;
 module.exports.getRecentMessages = getRecentMessages;
 module.exports.getRecentFriends = getRecentFriends;
+module.exports.postTweet = postTweet;

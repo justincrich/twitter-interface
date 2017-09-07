@@ -3,7 +3,7 @@
     ul.app--tweet--list
       each tweet in tweetData
         -var pic = tweet.image
-        li
+        li(id=tweet.id)
           strong.app--tweet--timestamp #{tweet.date}
           a.app--tweet--author
             .app--avatar(style="background-image: url("+pic+")")

@@ -3,7 +3,7 @@
     ul.app--user--list
       each friend in friendData
         -var pic = friend.image
-        li
+        li(id=friend.id)
           .circle--fluid
             .circle--fluid--cell.circle--fluid--primary
               a.app--tweet--author
