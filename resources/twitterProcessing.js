@@ -94,8 +94,7 @@ var getRecentFriends = function (client,username,messageNum = 5){
       function(err, data, response){
         if(err){
           reject(err);
-        }
-        if(data){
+        }else{
           let users = data.users;
           let output = [];
           let index = 0;
@@ -112,6 +111,9 @@ var getRecentFriends = function (client,username,messageNum = 5){
           }
           resolve(output);
         }
+        // if(data){
+        //
+        // }
       }
     )
   });
